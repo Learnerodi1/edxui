@@ -1,0 +1,42 @@
+                .img-wrap {
+                    position: relative;
+                    border-radius: 10px;
+                    overflow: hidden;
+                }
+
+                .img-wrap::before {
+                    content: '';
+                    position: absolute;
+                    inset: 0;
+                    background: radial-gradient(ellipse at 50% 110%, rgba(158, 33, 2, 0.5) 0%, rgba(232, 94, 29, 0.15) 40%, transparent 70%);
+                    z-index: 1;
+                    pointer-events: none;
+                }
+
+                .img-wrap::after {
+                    content: '';
+                    position: absolute;
+                    inset: 0;
+                    box-shadow: inset 0 0 80px 30px rgba(0, 0, 0, 0.7), inset 0 0 40px 10px rgba(158, 33, 2, 0.2);
+                    z-index: 2;
+                    pointer-events: none;
+                    border-radius: 10px;
+                }
+
+                .slide-label {
+                    font-family: var(--font-sans);
+                    font-size: 12px;
+                    font-weight: 500;
+                    color: var(--color-text-secondary);
+                    letter-spacing: 2px;
+                    text-transform: uppercase;
+                    margin-bottom: 8px;
+                }
+
+                .slide-tag {
+                    font-family: var(--font-sans);
+                    font-size: 11px;
+                    color: #E85E1D;
+                    font-weight: 500;
+                    margin-top: 6px;
+                }

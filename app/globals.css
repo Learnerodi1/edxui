@@ -1,26 +1,37 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-brand-primary: #9E2102;
+  --color-brand-accent: #E85E1D;
+  --color-dark: #111111;
+  --color-dark-panel: #0d0d0d;
+  --color-dim: #737373;
+  --color-light-bg: #FDF6EE;
+  --color-light-surface: #FAF2E8;
+  --color-light-panel: #F5E8D8;
+  --color-light-text: #1a0a00;
+  --color-light-muted: #6b4c35;
+  --color-light-dim: #3c1400;
+  --color-light-card: #F5EDE1;
+  --font-sans: var(--font-poppins), "Poppins", sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  height: 100%;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+[data-theme="dark"],
+:root {
+  background: #111111;
+  color: #ffffff;
+}
+
+[data-theme="light"] {
+  background: #FDF6EE;
+  color: #1a0a00;
 }
