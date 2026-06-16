@@ -3,6 +3,9 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { BottomNav } from "./components/BottomNav";
+import { ScrollProgress } from "./components/ScrollProgress";
+import { SmoothScroll } from "./components/SmoothScroll";
+import { Footer } from "./components/Footer";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -24,8 +27,12 @@ export default function RootLayout({
     <html lang="en" className={poppins.variable} data-theme="dark" suppressHydrationWarning>
       <body className="pb-20 lg:pb-0">
         <ThemeProvider>
-          {children}
-          <BottomNav />
+          <SmoothScroll>
+            <ScrollProgress />
+            {children}
+            <Footer />
+            <BottomNav />
+          </SmoothScroll>
         </ThemeProvider>
       </body>
     </html>

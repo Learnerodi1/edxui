@@ -3,6 +3,7 @@
 import { useTheme } from "./ThemeProvider"
 import clsx from "clsx"
 import { Hexagon, CircleDollarSign, ShieldCheck } from "lucide-react"
+import { motion } from "framer-motion"
 
 const cards = [
   {
@@ -51,18 +52,32 @@ export function WhySection() {
 
       {/* Section header */}
       <div className="mb-10 lg:mb-16 max-w-6xl mx-auto">
-        <p className="text-[10px] lg:text-[11px] font-semibold tracking-[2px] text-brand-accent uppercase mb-3">
-          WHY EDUCHAIN
-        </p>
-        <h2
-          className={clsx(
-            "text-[24px] lg:text-[38px] font-[900] leading-[1.1]",
-            isLight ? "text-light-text" : "text-white"
-          )}
-          style={{ letterSpacing: "-1px" }}
-        >
-          Built around one hard guarantee.
-        </h2>
+        <div className="overflow-hidden">
+          <motion.p
+            className="text-[10px] lg:text-[11px] font-semibold tracking-[2px] text-brand-accent uppercase mb-3"
+            initial={{ y: "100%" }}
+            whileInView={{ y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          >
+            WHY EDUCHAIN
+          </motion.p>
+        </div>
+        <div className="overflow-hidden">
+          <motion.h2
+            className={clsx(
+              "text-[24px] lg:text-[38px] font-[900] leading-[1.1]",
+              isLight ? "text-light-text" : "text-white"
+            )}
+            style={{ letterSpacing: "-1px" }}
+            initial={{ y: "100%" }}
+            whileInView={{ y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+          >
+            Built around one hard guarantee.
+          </motion.h2>
+        </div>
       </div>
 
       {/* Cards */}
@@ -72,12 +87,20 @@ export function WhySection() {
           const isEven = idx % 2 === 1
 
           return (
-            <div
+            <motion.div
               key={idx}
               className={clsx(
                 "flex flex-col lg:flex-row gap-8 lg:gap-16 items-start lg:items-center",
                 isEven && "lg:flex-row-reverse"
               )}
+              initial={{ opacity: 0, y: 80, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{
+                duration: 0.8,
+                delay: idx * 0.15,
+                ease: [0.25, 0.1, 0.25, 1],
+              }}
             >
               {/* Text side */}
               <div className="flex-1">
@@ -117,13 +140,15 @@ export function WhySection() {
 
               {/* Visual side — icon card */}
               <div className="flex-1 w-full lg:w-auto flex justify-center">
-                <div
+                <motion.div
                   className={clsx(
                     "relative w-full lg:w-[340px] h-[200px] lg:h-[260px] rounded-xl border overflow-hidden flex items-center justify-center",
                     isLight
                       ? "bg-light-surface border-brand-primary/[0.08]"
                       : "bg-dark-panel border-white/[0.08]"
                   )}
+                  whileHover={{ scale: 1.03, y: -5 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
                 >
                   {/* Background glow */}
                   <div
@@ -168,9 +193,9 @@ export function WhySection() {
                         : "bg-gradient-to-t from-dark-panel to-transparent"
                     )}
                   />
-                </div>
+                </motion.div>
               </div>
-            </div>
+            </motion.div>
           )
         })}
       </div>
