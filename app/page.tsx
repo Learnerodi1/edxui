@@ -62,18 +62,12 @@ function ThemeToggleSwitch({
     <button
       onClick={onToggle}
       className={clsx(
-        "relative w-[36px] h-[20px] rounded-full border flex items-center px-[3px] transition-colors",
+        "relative w-[36px] h-[36px] rounded-full border flex items-center px-[3px] transition-colors",
         isLight
           ? "bg-light-surface border-brand-primary/15"
           : "bg-[#1a1a1a] border-white/[0.08]"
       )}
     >
-      <div
-        className={clsx(
-          "w-[14px] h-[14px] rounded-full bg-brand-accent transition-transform duration-250",
-          isLight ? "translate-x-[16px]" : "translate-x-0"
-        )}
-      />
       <span
         className={clsx(
           "absolute flex items-center justify-center",
@@ -82,7 +76,7 @@ function ThemeToggleSwitch({
             : "right-[3px] text-brand-accent"
         )}
       >
-        {isLight ? <Sun size={10} strokeWidth={2.5} /> : <Moon size={10} strokeWidth={2.5} />}
+        {isLight ? <Sun size={24} strokeWidth={2.5} /> : <Moon size={24} strokeWidth={2.5} />}
       </span>
     </button>
   );
@@ -129,7 +123,7 @@ export default function Home() {
             : "bg-dark border-white/[0.08]"
         )}
       >
-        <span className="flex items-center gap-2 text-[16px] font-bold tracking-wide">
+        <span className="flex items-center gap-2 text-[20px] font-bold tracking-wide">
           <Image src="/favicon.ico" alt="EduChainX" width={24} height={24} className="rounded-sm" />
           Edu<span className="text-brand-accent">ChainX</span>
         </span>
@@ -156,7 +150,7 @@ export default function Home() {
         <div
           className={clsx(
             "absolute inset-0 z-[1] lg:hidden",
-            isLight ? "bg-light-bg/80" : "bg-dark/75"
+            isLight ? "bg-light-bg/10" : "bg-dark/10"
           )}
         />
 
@@ -256,8 +250,8 @@ export default function Home() {
 
             <p
               className={clsx(
-                "text-[14px] leading-[1.8] mb-5",
-                isLight ? "text-light-text/70" : "text-white/65"
+                "text-[14px] leading-[1.8] mb-5 p-4",
+                isLight ? "text-light-text bg-light-bg/70 backdrop-blur-[]" : "text-white/65"
               )}
             >
               {slide.description}
