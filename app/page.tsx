@@ -76,11 +76,13 @@ function ThemeToggleSwitch({
       />
       <span
         className={clsx(
-          "absolute text-[9px] leading-none",
-          isLight ? "left-[5px]" : "right-[4px]"
+          "absolute flex items-center justify-center",
+          isLight
+            ? "left-[4px] text-brand-primary"
+            : "right-[3px] text-brand-accent"
         )}
       >
-        {isLight ? "☀️" : "🌙"}
+        {isLight ? <Sun size={10} strokeWidth={2.5} /> : <Moon size={10} strokeWidth={2.5} />}
       </span>
     </button>
   );
@@ -137,14 +139,34 @@ export default function Home() {
       {/* ═══════════════════════════════════════════ */}
       {/* HERO SECTION                               */}
       {/* ═══════════════════════════════════════════ */}
-      <section ref={heroRef} className="flex lg:h-screen relative">
+      <section ref={heroRef} className="relative flex lg:h-screen overflow-hidden">
+        {/* Mobile-only: animated background images — crossfade */}
+        {slides.map((s, i) => (
+          <div
+            key={i}
+            className={clsx(
+              "absolute inset-0 bg-cover bg-center transition-opacity duration-[1200ms] ease-in-out lg:hidden",
+              i === current ? "opacity-100" : "opacity-0"
+            )}
+            style={{ backgroundImage: `url(${s.imgUrl.src})` }}
+          />
+        ))}
+
+        {/* Mobile-only: gradient overlay for text readability */}
+        <div
+          className={clsx(
+            "absolute inset-0 z-[1] lg:hidden",
+            isLight ? "bg-light-bg/80" : "bg-dark/75"
+          )}
+        />
+
         {/* LEFT SIDEBAR — desktop only */}
         <aside
           className={clsx(
             "relative hidden lg:flex flex-col items-center overflow-hidden justify-around w-[100px] border-r px-6 transition-colors duration-300",
             isLight
               ? "bg-[#1a0a00] border-white/[0.08]"
-              : "border-white/[0.08]"
+              : "bg-dark border-white/[0.08]"
           )}
         >
           <div className="flex flex-col items-center gap-3 mt-4">
@@ -183,7 +205,7 @@ export default function Home() {
         </aside>
 
         {/* MAIN COLUMN */}
-        <div className="flex flex-col flex-1 pt-[56px] lg:pt-3 lg:p-3 lg:pr-0 overflow-hidden">
+        <div className="flex flex-col flex-1 relative z-10 pt-[56px] lg:pt-3 lg:p-3 lg:pr-0 overflow-hidden">
           {/* Desktop logo + theme toggle */}
           <div className="hidden lg:flex items-center justify-between py-3 pr-6">
             <span className="flex items-center gap-3 text-4xl font-bold tracking-wide">
@@ -204,22 +226,14 @@ export default function Home() {
           </div>
 
           {/* ============ MOBILE HERO ============ */}
-          <div className="flex flex-col px-4 pt-5 lg:hidden">
-            <div
-              className={clsx(
-                "text-[10px] tracking-[2px] mb-1",
-                isLight ? "text-light-dim/20" : "text-white/20"
-              )}
-            >
-              {slide.counter}
-            </div>
-            <p className="text-[10px] font-semibold tracking-[1px] text-brand-accent uppercase mb-[3px]">
+          <div className="flex flex-col px-5 pt-6 lg:hidden">
+            <p className="text-[12px] font-semibold tracking-[1.5px] text-brand-accent uppercase mb-1">
               {slide.label}
             </p>
             <p
               className={clsx(
-                "text-[9px] mb-3.5",
-                isLight ? "text-light-dim/50" : "text-white/40"
+                "text-[13px] mb-4",
+                isLight ? "text-light-text/60" : "text-white/55"
               )}
             >
               {slide.subtitle}
@@ -227,7 +241,7 @@ export default function Home() {
 
             <div className="overflow-hidden">
               <motion.h1
-                className="text-[30px] font-[900] leading-[1.05] mb-3.5"
+                className="text-[36px] font-[900] leading-[1.05] mb-5"
                 style={{ letterSpacing: "-1px" }}
                 initial={{ y: "100%" }}
                 animate={{ y: 0 }}
@@ -240,74 +254,37 @@ export default function Home() {
               </motion.h1>
             </div>
 
-            <div
-              className={clsx(
-                "relative w-full h-[150px] rounded-[10px] border overflow-hidden mb-3.5 flex items-center justify-center",
-                isLight
-                  ? "bg-light-surface/80 border-brand-primary/10"
-                  : "bg-white/[0.04] border-white/[0.08]"
-              )}
-            >
-              <Image
-                alt=""
-                width={400}
-                height={400}
-                src={slide.imgUrl}
-                className={clsx(
-                  "h-full w-auto object-contain",
-                  slide.imgStyle
-                )}
-              />
-              <div
-                className={clsx(
-                  "absolute bottom-0 left-0 right-0 h-[60px]",
-                  isLight
-                    ? "bg-gradient-to-t from-light-bg to-transparent"
-                    : "bg-gradient-to-t from-dark to-transparent"
-                )}
-              />
-            </div>
-
             <p
               className={clsx(
-                "text-[10px] leading-[1.75] mb-4",
-                isLight ? "text-light-dim/50" : "text-white/40"
+                "text-[14px] leading-[1.8] mb-5",
+                isLight ? "text-light-text/70" : "text-white/65"
               )}
             >
               {slide.description}
             </p>
 
-            <div className="flex flex-col gap-2 mb-3.5">
+            <div className="flex flex-col gap-2.5 mb-5">
               <a
                 href="#"
-                className="flex items-center justify-center gap-2 bg-brand-primary text-white text-[12px] font-semibold py-3 rounded-[7px] hover:brightness-110 transition"
+                className="flex items-center justify-center gap-2 bg-brand-primary text-white text-[14px] font-semibold py-3.5 rounded-lg hover:brightness-110 transition"
               >
                 Start Onboarding
-                <ArrowRight size={13} />
+                <ArrowRight size={15} />
               </a>
               <a
                 href="#"
                 className={clsx(
-                  "flex items-center justify-center text-[12px] py-3 rounded-[7px] border transition",
+                  "flex items-center justify-center text-[14px] font-medium py-3.5 rounded-lg border transition",
                   isLight
-                    ? "border-brand-primary/10 text-light-dim/50 hover:bg-brand-primary/5"
-                    : "border-white/[0.08] text-white/40 hover:bg-white/5"
+                    ? "border-brand-primary/15 text-light-text/70 hover:bg-brand-primary/5"
+                    : "border-white/15 text-white/60 hover:bg-white/5"
                 )}
               >
                 Explore Courses
               </a>
             </div>
 
-            <p
-              className={clsx(
-                "text-[9px] text-center mb-3",
-                isLight ? "text-light-dim/30" : "text-white/20"
-              )}
-            >
-              ✔ 12 universities • 45,000+ students
-            </p>
-
-            <div className="flex gap-1.5 justify-center mb-4">
+            <div className="flex gap-2 justify-center mb-5">
               {slides.map((_, i) => (
                 <button
                   key={i}
@@ -315,10 +292,10 @@ export default function Home() {
                   className={clsx(
                     "h-[6px] rounded-full transition-all",
                     i === current
-                      ? "w-[18px] bg-brand-accent"
+                      ? "w-5 bg-brand-accent"
                       : clsx(
                           "w-[6px]",
-                          isLight ? "bg-brand-primary/15" : "bg-white/20"
+                          isLight ? "bg-brand-primary/20" : "bg-white/25"
                         )
                   )}
                 />
@@ -345,34 +322,47 @@ export default function Home() {
               className="w-full flex flex-row items-center justify-around h-full"
               style={{ y: heroTextY, opacity: heroOpacity }}
             >
-              <section className="flex gap-2 flex-col relative z-10">
+              <section
+                className={clsx(
+                  "flex gap-2 flex-col relative z-10 rounded-2xl px-5 py-4",
+                  isLight && "bg-light-bg/70 backdrop-blur-sm"
+                )}
+              >
                 <div className="flex items-center gap-4 mb-2">
                   <span
                     className={clsx(
-                      "text-[13px] font-medium",
-                      isLight ? "text-light-text/35" : "text-white/45"
+                      "text-[14px] font-medium",
+                      isLight ? "text-light-text/70" : "text-white/55"
                     )}
                   >
                     {slide.counter}
                   </span>
                 </div>
-                <p className="text-[11px] font-semibold tracking-[0.15em] text-brand-accent uppercase mb-2">
+                <p className="text-[13px] font-semibold tracking-[0.15em] text-brand-accent uppercase mb-2">
                   {slide.label}
                 </p>
                 <p
                   className={clsx(
-                    "text-[12px] mb-3",
-                    isLight ? "text-light-text/35" : "text-white/45"
+                    "text-[14px] mb-3",
+                    isLight ? "text-light-text/70" : "text-white/55"
                   )}
                 >
                   {slide.subtitle}
                 </p>
               </section>
 
-              <section className="flex gap-3 flex-col relative z-10 self-end">
+              <section
+                className={clsx(
+                  "flex gap-3 flex-col relative z-10 self-end rounded-2xl px-5 py-4",
+                  isLight && "bg-light-bg/70 backdrop-blur-sm"
+                )}
+              >
                 <div className="overflow-hidden">
                   <motion.h1
-                    className="font-[900] leading-[1.05] mb-5"
+                    className={clsx(
+                      "font-[900] leading-[1.05] mb-5",
+                      isLight && "text-light-text"
+                    )}
                     style={{
                       fontSize: "clamp(36px, 5vw, 58px)",
                       letterSpacing: "-2px",
@@ -391,8 +381,8 @@ export default function Home() {
                 </div>
                 <p
                   className={clsx(
-                    "text-[13px] leading-[1.7] max-w-[420px] mb-7",
-                    isLight ? "text-light-text/45" : "text-white/45"
+                    "text-[15px] leading-[1.7] max-w-[420px] mb-7",
+                    isLight ? "text-light-text/80" : "text-white/60"
                   )}
                 >
                   {slide.description}
@@ -411,7 +401,7 @@ export default function Home() {
             <a
               href="#"
               className={clsx(
-                "inline-flex items-center gap-2 text-[13px] font-semibold px-6 py-3 rounded-lg hover:brightness-110 transition",
+                "inline-flex items-center gap-2 text-[14px] font-semibold px-6 py-3 rounded-lg hover:brightness-110 transition",
                 isLight
                   ? "bg-brand-primary text-white"
                   : "bg-brand-accent/50 text-white"
@@ -423,7 +413,7 @@ export default function Home() {
             <a
               href="#"
               className={clsx(
-                "inline-flex items-center gap-2 text-[13px] font-semibold px-6 py-3 rounded-lg transition",
+                "inline-flex items-center gap-2 text-[14px] font-semibold px-6 py-3 rounded-lg transition",
                 isLight
                   ? "border border-brand-primary/20 text-brand-primary hover:bg-brand-primary/5"
                   : "border border-white/20 text-white hover:bg-white/5"
@@ -436,42 +426,42 @@ export default function Home() {
           {/* BOTTOM INFO PANEL */}
           <div
             className={clsx(
-              "w-full lg:w-fit lg:self-end relative z-10 grid grid-cols-2 border-t transition-colors duration-300",
+              "w-full lg:w-fit lg:self-end relative z-10 grid grid-cols-1 sm:grid-cols-2 border-t transition-colors duration-300",
               isLight
                 ? "bg-[#1a0a00] border-white/[0.08] text-white"
                 : "bg-dark-panel border-white/[0.08]"
             )}
           >
-            <div className="px-3.5 sm:px-6 lg:px-7 py-3 lg:py-5 border-r border-white/[0.08]">
+            <div className="px-4 sm:px-6 lg:px-7 py-3.5 lg:py-5 border-b sm:border-b-0 sm:border-r border-white/[0.08]">
               <div className="flex items-center gap-2 mb-1.5 lg:mb-2">
-                <span className="text-[8px] lg:text-[10px] font-semibold tracking-[2px] uppercase text-white/20">
+                <span className="text-[10px] lg:text-[11px] font-semibold tracking-[1.5px] uppercase text-white/35">
                   Upcoming
                 </span>
-                <span className="text-[8px] font-bold px-1.5 py-0.5 rounded uppercase bg-brand-accent/15 text-brand-accent">
+                <span className="text-[9px] font-bold px-1.5 py-0.5 rounded uppercase bg-brand-accent/15 text-brand-accent">
                   Soon
                 </span>
               </div>
-              <p className="text-[11px] lg:text-[13px] font-semibold mb-0.5 lg:mb-1">
+              <p className="text-[13px] lg:text-[15px] font-semibold mb-0.5 lg:mb-1">
                 Verification Summit
               </p>
-              <p className="text-[9px] lg:text-[11px] text-white/45">
+              <p className="text-[11px] lg:text-[13px] text-white/55">
                 Lagos — August 2026
               </p>
             </div>
 
-            <div className="px-3.5 sm:px-6 lg:px-7 py-3 lg:py-5">
-              <span className="text-[8px] lg:text-[10px] font-semibold tracking-[2px] uppercase block mb-1.5 lg:mb-2 text-white/20">
+            <div className="px-4 sm:px-6 lg:px-7 py-3.5 lg:py-5">
+              <span className="text-[10px] lg:text-[11px] font-semibold tracking-[1.5px] uppercase block mb-1.5 lg:mb-2 text-white/35">
                 News
               </span>
-              <p className="text-[11px] lg:text-[13px] font-semibold mb-0.5 lg:mb-1">
+              <p className="text-[13px] lg:text-[15px] font-semibold mb-0.5 lg:mb-1">
                 Partnership with 5 new universities
               </p>
-              <p className="text-[9px] lg:text-[11px] mb-1 lg:mb-2 text-white/45">
+              <p className="text-[11px] lg:text-[13px] mb-1.5 lg:mb-2 text-white/55">
                 Expanding our network across West Africa
               </p>
               <a
                 href="#"
-                className="text-[9px] lg:text-[12px] font-semibold text-brand-accent hover:underline"
+                className="text-[12px] lg:text-[13px] font-semibold text-brand-accent hover:underline"
               >
                 Read More
               </a>
@@ -482,10 +472,10 @@ export default function Home() {
         {/* RIGHT SIDEBAR — desktop only */}
         <aside
           className={clsx(
-            "hidden lg:flex flex-col items-center justify-center w-[100px] border-l shrink-0 gap-6 transition-colors duration-300",
+            "hidden lg:flex flex-col items-center justify-center w-[100px] border-l shrink-0 gap-6 transition-colors duration-300 relative z-10",
             isLight
               ? "bg-[#1a0a00] border-white/[0.08]"
-              : "border-white/[0.08]"
+              : "bg-dark border-white/[0.08]"
           )}
         >
           {[

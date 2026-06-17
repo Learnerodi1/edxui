@@ -191,8 +191,8 @@ export function StatsBanner() {
               {/* Label */}
               <span
                 className={clsx(
-                  "text-[7px] lg:text-[8px] font-semibold tracking-[1.5px] uppercase leading-tight",
-                  isLight ? "text-light-muted" : "text-white/30"
+                  "text-[9px] lg:text-[10px] font-semibold tracking-[1.5px] uppercase leading-tight",
+                  isLight ? "text-light-muted" : "text-white/50"
                 )}
               >
                 {stat.label}

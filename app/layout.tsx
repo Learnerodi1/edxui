@@ -6,6 +6,7 @@ import { BottomNav } from "./components/BottomNav";
 import { ScrollProgress } from "./components/ScrollProgress";
 import { SmoothScroll } from "./components/SmoothScroll";
 import { Footer } from "./components/Footer";
+import { PageLoader } from "./components/PageLoader";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -27,6 +28,7 @@ export default function RootLayout({
     <html lang="en" className={poppins.variable} data-theme="dark" suppressHydrationWarning>
       <body className="pb-20 lg:pb-0">
         <ThemeProvider>
+          <PageLoader />
           <SmoothScroll>
             <ScrollProgress />
             {children}

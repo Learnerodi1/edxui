@@ -35,3 +35,50 @@ body {
   background: #FDF6EE;
   color: #1a0a00;
 }
+
+/* PageLoader animations */
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+@keyframes spin-slow-reverse {
+  to { transform: rotate(-360deg); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(-6px); }
+  50% { transform: translateY(6px); }
+}
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.1); }
+}
+@keyframes node-blink {
+  0%, 100% { background-color: #9E2102; opacity: 1; }
+  50% { background-color: #E85E1D; opacity: 0.4; }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+}
+.animate-spin-slow-reverse {
+  animation: spin-slow-reverse 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+}
+.animate-float {
+  animation: float 2.5s ease-in-out infinite;
+}
+.animate-pulse-glow {
+  background: radial-gradient(circle, rgba(158,33,2,0.2) 0%, transparent 70%);
+  animation: pulse-glow 2.5s ease-in-out infinite;
+}
+.animate-node-blink {
+  animation: node-blink 1.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-spin-slow,
+  .animate-spin-slow-reverse,
+  .animate-float,
+  .animate-pulse-glow,
+  .animate-node-blink {
+    animation: none !important;
+  }
+}
